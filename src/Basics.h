@@ -2,6 +2,7 @@
 #define SOLUCION_BASICS_H
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 typedef string Variable;

@@ -4,11 +4,12 @@
 #include "Basics.h"
 
 class Instruccion {
+private:
     Operacion operacion;
     int num;
     Variable var;
     Rutina rutina;
-
+public:
     Instruccion();
     Operacion op();
     int constanteNumerica();

@@ -4,13 +4,14 @@
 #include "Basics.h"
 
 class InstruccionCaculadora {
+private:
     Operacion operacion;
     int num;
     Variable var;
     Rutina rutina;
     iteradorVariables it_variable;
     iteradorRutinas it_rutina;
-
+public:
     InstruccionCaculadora();
     Operacion op();
     int constanteNumerica();
