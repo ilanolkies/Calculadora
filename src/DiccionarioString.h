@@ -1,0 +1,8 @@
+//
+// Created by dylan on 30 jun 2018.
+//
+
+#ifndef SOLUCION_DICCIONARIOSTRING_H
+#define SOLUCION_DICCIONARIOSTRING_H
+
+#endif //SOLUCION_DICCIONARIOSTRING_H
