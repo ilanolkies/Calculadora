@@ -36,7 +36,7 @@ public:
     public:
         void operator++();
         void operator--();
-        void operator*();
+        EstructuraRutina& operator*();
     };
 };
 

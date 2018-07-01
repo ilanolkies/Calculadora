@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 using namespace std;
 
 typedef string Variable;
 typedef string Rutina;
+typedef int Instante;
 
 enum Operacion {
     PUSH,
