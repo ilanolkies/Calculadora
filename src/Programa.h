@@ -19,23 +19,25 @@ private:
 public:
     Programa();
     void agregarInstruccion(Rutina r, Instruccion i);
-    vector<Instruccion> obtenerInstrucciones(Rutina r);
+    vector<Instruccion>& obtenerInstrucciones(Rutina r);
     int longitudPrograma();
     int longitudRutina(Rutina r);
     int longitudTotal();
     Rutina obtenerRutina(int i);
-    iterator begin();
-    iterator end();
+    iterator* begin();
+    iterator* end();
 
     class iterator {
     private:
+        friend class Programa;
+
         vector<EstructuraRutina> *rutinas;
         int rutina;
 
         iterator(vector<EstructuraRutina> *rutinas, int rutina);
     public:
-        void operator++();
-        void operator--();
+        EstructuraRutina& operator++();
+        EstructuraRutina& operator--();
         EstructuraRutina& operator*();
     };
 };
