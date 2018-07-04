@@ -1,7 +1,3 @@
-//
-// Created by dylan on 30 jun 2018.
-//
-
 #ifndef SOLUCION_PILA_H
 #define SOLUCION_PILA_H
 
@@ -9,11 +5,11 @@
 
 class Pila {
 private:
-    vector<int> pila;
+    vector<int> _pila;
+    int _size = 0;
 public:
-    void push();
-    void top();
-    void pop();
+    void push(int i);
+    int pop();
     int size();
 };
 
