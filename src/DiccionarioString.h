@@ -42,13 +42,13 @@ private:
     int _size;
 public:
     DiccionarioString();
-    iterator agregar(string clave, T& valor);
-    iterator buscar(string clave);
+    Iterator agregar(string clave, T& valor);
+    Iterator buscar(string clave);
 
-    class iterator {
+    class Iterator {
     private:
         Nodo* nodo;
-        iterator(Nodo* nodo);
+        Iterator(Nodo* nodo);
     public:
         T& operator*();
     };

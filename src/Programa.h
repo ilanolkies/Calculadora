@@ -24,17 +24,17 @@ public:
     int longitudRutina(Rutina r);
     int longitudTotal();
     Rutina obtenerRutina(int i);
-    iterator begin();
-    iterator end();
+    Iterator begin();
+    Iterator end();
 
-    class iterator {
+    class Iterator {
     private:
         friend class Programa;
 
         vector<EstructuraRutina> *rutinas;
         int rutina;
 
-        iterator(vector<EstructuraRutina> *rutinas, int rutina);
+        Iterator(vector<EstructuraRutina> *rutinas, int rutina);
     public:
         EstructuraRutina& operator++();
         EstructuraRutina& operator--();

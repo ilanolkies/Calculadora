@@ -6,7 +6,6 @@
 #define SOLUCION_CALCULADORA_H
 
 #include "Basics.h"
-#include "Pila.h"
 #include "Programa.h"
 #include "DiccionarioString.h"
 #include "Ventana.h"
@@ -52,12 +51,23 @@ private:
         InstruccionCaculadora();
         Operacion op();
         int constanteNumerica();
-        Variable nombreVariable();
-        Rutina nombreRutina();
+        Variable& nombreVariable();
+        Rutina& nombreRutina();
         void agregarIteradorVariables(IteradorVariables it);
         void agregarIteradorRutinas(IteradorRutinas it);
         IteradorVariables obtenerIteradorVariables();
         IteradorRutinas obtenerIteradorRutinas();
+    };
+
+    class Pila {
+    private:
+        stack pila;
+    public:
+        void push();
+        void top();
+        void pop();
+        int size();
+        const stack& getStack();
     };
 public:
     Calculadora(Rutina rutina_inicial, int capacidad_de_ventana);
@@ -65,11 +75,11 @@ public:
     void ejeutar();
     void asignarVariable(Variable v, int valor);
     Instante instanteActual();
-    Rutina rutinaActual();
+    Rutina& rutinaActual();
     int indiceActual();
     int valorVariable(Variable v, Instante instante);
     int valorActual(Variable v);
-    Pila pila();
+    const stack& pila();
 };
 
 #endif //SOLUCION_CALCULADORA_H

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <stack>
 using namespace std;
 
 typedef string Variable;
