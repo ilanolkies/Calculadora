@@ -10,7 +10,7 @@ private:
     Variable var;
     Rutina rutina;
 public:
-    Instruccion();
+    Instruccion(Operacion o, int n, Variable v, Rutina r);
     Operacion op();
     int constanteNumerica();
     Variable nombreVariable();
