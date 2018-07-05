@@ -29,9 +29,12 @@ public:
 
     class Iterator {
     private:
+        friend class DiccionarioString<T>;
+
         Nodo* nodo;
         Iterator(Nodo* nodo);
     public:
+        Iterator();
         T& operator*();
     };
 };

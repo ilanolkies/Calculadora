@@ -9,6 +9,7 @@
 #include "Programa.h"
 #include "DiccionarioString.h"
 #include "Ventana.h"
+#include "Instruccion.h"
 
 class Calculadora {
 private:
@@ -48,7 +49,7 @@ private:
         IteradorVariables it_variable;
         IteradorRutinas it_rutina;
     public:
-        InstruccionCaculadora();
+        InstruccionCaculadora(Instruccion i);
         Operacion op();
         int constanteNumerica();
         Variable& nombreVariable();

@@ -1,4 +1,3 @@
-#include "DiccionarioString.h"
 
 template <typename T>
 DiccionarioString<T>::Nodo::Nodo() {
@@ -57,12 +56,18 @@ DiccionarioString<T>::Iterator DiccionarioString<T>::buscar(string clave) {
     return Iterator(res);
 }
 
+template <typename T>
 DiccionarioString::Iterator::Iterator(Nodo *nodo) : nodo(nodo) {}
 
+template <typename T>
+DiccionarioString::Iterator::Iterator() : nodo(NULL) {}
+
+template <typename T>
 T& DiccionarioString::Iterator::operator*() {
     return nodo->definicion;
 }
 
+template <typename T>
 stack DiccionarioString<T>::buscar_pila(const string& word){
     Nodo* actual = raiz;
     int pos_actual = 0;
