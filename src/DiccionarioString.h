@@ -20,6 +20,7 @@ private:
     };
 
     stack<Nodo*> buscar_pila(const string& clave);
+    void borrar_nodo(Nodo* nodo);
 
     Nodo* raiz;
     int _size;
@@ -36,6 +37,7 @@ public:
     };
 
     DiccionarioString();
+    ~DiccionarioString();
     Iterator agregar(string clave, T& valor);
     Iterator buscar(string clave);
 };

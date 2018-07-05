@@ -61,3 +61,4 @@ int Calculadora::Pila::size() {
 const stack<int>& Calculadora::Pila::getStack() {
     return pila;
 }
+

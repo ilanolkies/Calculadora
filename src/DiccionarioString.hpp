@@ -24,6 +24,11 @@ DiccionarioString<T>::DiccionarioString() {
 }
 
 template <typename T>
+DiccionarioString<T>::~DiccionarioString() {
+    borrar_nodo(raiz);
+}
+
+template <typename T>
 typename DiccionarioString<T>::Iterator DiccionarioString<T>::agregar(string clave, T &valor){
     stack<Nodo*> p = buscar_pila(clave);
     Nodo* res = p.top();
@@ -79,4 +84,18 @@ stack< typename DiccionarioString<T>::Nodo* > DiccionarioString<T>::buscar_pila(
         pos_actual++;
     }
     return p;
+}
+
+template <typename T>
+void DiccionarioString<T>::borrar_nodo(DiccionarioString<T>::Nodo *nodo) {
+    for (int x = 0; x < SIZE; ++x) {
+        if (nodo->siguientes[x] != NULL) {
+            borrar_nodo(nodo->siguientes[x], true);
+            nodo->siguientes[x] = NULL;
+        }
+    }
+    if (nodo->definicion != NULL)
+        delete nodo->definicion;
+    delete[] nodo->siguientes;
+    delete nodo;
 }
