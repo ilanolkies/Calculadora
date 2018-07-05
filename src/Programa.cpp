@@ -51,12 +51,12 @@ Rutina Programa::obtenerRutina(int i) {
     return rutinas[i].rutina;
 }
 
-Programa::iterator* Programa::begin() {
-    return new iterator(&rutinas, 0);
+Programa::iterator Programa::begin() {
+    return iterator(&rutinas, 0);
 }
 
-Programa::iterator* Programa::end() {
-    return new iterator(&rutinas, (int)rutinas.size());
+Programa::iterator Programa::end() {
+    return iterator(&rutinas, (int)rutinas.size());
 }
 
 Programa::iterator::iterator(vector<EstructuraRutina> *rutinas, int rutina) : rutinas(rutinas), rutina(rutina) {}
@@ -71,6 +71,6 @@ EstructuraRutina& Programa::iterator::operator--() {
     return (*rutinas)[rutina];
 }
 
-EstructuraRutina& Programa::iterator::operator++() {
+EstructuraRutina& Programa::iterator::operator*() {
     return (*rutinas)[rutina];
 }

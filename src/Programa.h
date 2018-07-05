@@ -24,8 +24,8 @@ public:
     int longitudRutina(Rutina r);
     int longitudTotal();
     Rutina obtenerRutina(int i);
-    iterator* begin();
-    iterator* end();
+    iterator begin();
+    iterator end();
 
     class iterator {
     private:
