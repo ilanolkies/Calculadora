@@ -18,25 +18,7 @@ private:
         T* definicion;
     };
 
-    class Pila {
-    private:
-        vector<Nodo*> p;
-
-    public:
-        void push(Nodo* item) {
-            p.push_back(item);
-        }
-
-        Nodo* pop() {
-            Nodo* item = p.back();
-            p.pop_back();
-            return item;
-        }
-
-        int size() {
-            return p.size();
-        }
-    };
+    stack buscar_pila(const string& clave);
 
     Nodo* raiz;
     int _size;
