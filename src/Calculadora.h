@@ -13,7 +13,20 @@
 
 class Calculadora {
 private:
-    typedef vector<InstruccionCaculadora> ConjInstrucciones;
+    class InstruccionCalculadora;
+
+    class Pila {
+    private:
+        stack<int> pila;
+    public:
+        void push(int elem);
+        int top();
+        void pop();
+        int size();
+        const stack<int>& getStack();
+    };
+
+    typedef vector<InstruccionCalculadora> ConjInstrucciones;
 
     struct ValorVariable {
         Instante instante;
@@ -59,17 +72,6 @@ private:
         IteradorVariables obtenerIteradorVariables();
         IteradorRutinas obtenerIteradorRutinas();
     };
-
-    class Pila {
-    private:
-        stack pila;
-    public:
-        void push();
-        void top();
-        void pop();
-        int size();
-        const stack& getStack();
-    };
 public:
     Calculadora(Rutina rutina_inicial, int capacidad_de_ventana);
     bool finalizo();
@@ -80,7 +82,7 @@ public:
     int indiceActual();
     int valorVariable(Variable v, Instante instante);
     int valorActual(Variable v);
-    const stack& pila();
+    const stack<int>& pila();
 };
 
 #endif //SOLUCION_CALCULADORA_H

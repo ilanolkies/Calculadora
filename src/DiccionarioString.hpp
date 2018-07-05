@@ -24,17 +24,17 @@ DiccionarioString<T>::DiccionarioString() {
 }
 
 template <typename T>
-DiccionarioString<T>::Iterator DiccionarioString<T>::agregar(string clave, T &valor){
-    stack p = buscar_pila(clave);
-    Nodo* res = p.back();
-    p.pop_back();
+typename DiccionarioString<T>::Iterator DiccionarioString<T>::agregar(string clave, T &valor){
+    stack<Nodo*> p = buscar_pila(clave);
+    Nodo* res = p.top();
+    p.pop();
     if (res != NULL && res->definicion != NULL) {
         *(res->definicion) = valor;
         return Iterator(res);
     } else {
         if (res == NULL) {
-            res = p.back();
-            p.pop_back();
+            res = p.top();
+            p.pop();
         }
         int key_pos = p.size();
         while (key_pos < clave.size()) {
@@ -50,32 +50,32 @@ DiccionarioString<T>::Iterator DiccionarioString<T>::agregar(string clave, T &va
 }
 
 template <typename T>
-DiccionarioString<T>::Iterator DiccionarioString<T>::buscar(string clave) {
-    stack p = buscar_pila(clave);
-    Nodo* res = p.back();
+typename DiccionarioString<T>::Iterator DiccionarioString<T>::buscar(string clave) {
+    stack<Nodo*> p = buscar_pila(clave);
+    Nodo* res = p.top();
     return Iterator(res);
 }
 
 template <typename T>
-DiccionarioString::Iterator::Iterator(Nodo *nodo) : nodo(nodo) {}
+DiccionarioString<T>::Iterator::Iterator(Nodo *nodo) : nodo(nodo) {}
 
 template <typename T>
-DiccionarioString::Iterator::Iterator() : nodo(NULL) {}
+DiccionarioString<T>::Iterator::Iterator() : nodo(NULL) {}
 
 template <typename T>
-T& DiccionarioString::Iterator::operator*() {
+T& DiccionarioString<T>::Iterator::operator*() {
     return nodo->definicion;
 }
 
 template <typename T>
-stack DiccionarioString<T>::buscar_pila(const string& word){
+stack< typename DiccionarioString<T>::Nodo* > DiccionarioString<T>::buscar_pila(const string& word){
     Nodo* actual = raiz;
     int pos_actual = 0;
-    stack p;
-    p.push_back(actual);
+    stack<Nodo*> p;
+    p.push(actual);
     while (actual != NULL && pos_actual < word.size()) {
         actual = actual->siguientes[int(word[pos_actual])];
-        p.push_back(actual);
+        p.push(actual);
         pos_actual++;
     }
     return p;

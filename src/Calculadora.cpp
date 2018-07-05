@@ -32,10 +32,32 @@ void Calculadora::InstruccionCaculadora::agregarIteradorRutinas(IteradorRutinas 
     it_rutina = it;
 }
 
-IteradorVariables Calculadora::InstruccionCaculadora::obtenerIteradorVariables() {
+Calculadora::IteradorVariables Calculadora::InstruccionCaculadora::obtenerIteradorVariables() {
     return it_variable;
 }
 
-IteradorRutinas Calculadora::InstruccionCaculadora::obtenerIteradorRutinas() {
+Calculadora::IteradorRutinas Calculadora::InstruccionCaculadora::obtenerIteradorRutinas() {
     return it_rutina;
+}
+
+// PILA
+
+void Calculadora::Pila::push(int elem) {
+    pila.push(elem);
+}
+
+int Calculadora::Pila::top() {
+    return pila.top();
+}
+
+void Calculadora::Pila::pop() {
+    pila.pop();
+}
+
+int Calculadora::Pila::size() {
+    return pila.size();
+}
+
+const stack<int>& Calculadora::Pila::getStack() {
+    return pila;
 }

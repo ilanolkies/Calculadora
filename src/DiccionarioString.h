@@ -6,6 +6,7 @@
 #define SOLUCION_DICCIONARIOSTRING_H
 
 #include "Basics.h"
+#define SIZE 256
 
 template <typename T>
 class DiccionarioString {
@@ -18,15 +19,11 @@ private:
         T* definicion;
     };
 
-    stack buscar_pila(const string& clave);
+    stack<Nodo*> buscar_pila(const string& clave);
 
     Nodo* raiz;
     int _size;
 public:
-    DiccionarioString();
-    Iterator agregar(string clave, T& valor);
-    Iterator buscar(string clave);
-
     class Iterator {
     private:
         friend class DiccionarioString<T>;
@@ -37,6 +34,10 @@ public:
         Iterator();
         T& operator*();
     };
+
+    DiccionarioString();
+    Iterator agregar(string clave, T& valor);
+    Iterator buscar(string clave);
 };
 
 #include "DiccionarioString.hpp"
