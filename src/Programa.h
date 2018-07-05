@@ -17,16 +17,6 @@ class Programa {
 private:
     vector<EstructuraRutina> rutinas;
 public:
-    Programa();
-    void agregarInstruccion(Rutina r, Instruccion i);
-    vector<Instruccion>& obtenerInstrucciones(Rutina r);
-    int longitudPrograma();
-    int longitudRutina(Rutina r);
-    int longitudTotal();
-    Rutina obtenerRutina(int i);
-    Iterator begin();
-    Iterator end();
-
     class Iterator {
     private:
         friend class Programa;
@@ -40,6 +30,16 @@ public:
         EstructuraRutina& operator--();
         EstructuraRutina& operator*();
     };
+
+    Programa();
+    void agregarInstruccion(Rutina r, Instruccion i);
+    vector<Instruccion>& obtenerInstrucciones(Rutina r);
+    int longitudPrograma();
+    int longitudRutina(Rutina r);
+    int longitudTotal();
+    Rutina obtenerRutina(int i);
+    Iterator begin();
+    Iterator end();
 };
 
 #endif //SOLUCION_PROGRAMA_H

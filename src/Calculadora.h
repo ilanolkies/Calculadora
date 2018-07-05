@@ -26,8 +26,8 @@ private:
 
     typedef DiccionarioString<ConjInstrucciones> DiccionarioRutinas;
     typedef DiccionarioString<InfoVariables> DiccionarioVariables;
-    typedef DiccionarioRutinas::iterator IteradorRutinas;
-    typedef DiccionarioVariables::iterator IteradorVariables;
+    typedef DiccionarioRutinas::Iterator IteradorRutinas;
+    typedef DiccionarioVariables::Iterator IteradorVariables;
 
     Programa programa;
     DiccionarioRutinas rutinas;
