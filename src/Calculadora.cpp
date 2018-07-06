@@ -133,8 +133,9 @@ void Calculadora::ejeutar() {
             break;
         } case WRITE: {
             // Ya tenemos el iterador a la ventana y a la lista asi que agregamos el instante actual con el valor extraido de la pila
-            (*i.obtenerIteradorVariables()).ventana.registrar(ValorVariable(instante_actual, _pila.pop()));
-            (*i.obtenerIteradorVariables()).lista.push_back(ValorVariable(instante_actual, _pila.pop()));
+            int valor = _pila.pop();
+            (*i.obtenerIteradorVariables()).ventana.registrar(ValorVariable(instante_actual, valor));
+            (*i.obtenerIteradorVariables()).lista.push_back(ValorVariable(instante_actual, valor));
             break;
         } case JUMP: {
             // Ya tenemos el iterador de la rutina en la instruccion asi que lo buscamos y lo seteamos como rutina actual
@@ -165,7 +166,7 @@ void Calculadora::ejeutar() {
     indice_instruccion_actual++;
     instante_actual++;
     // Si termino la rutina, termino el programa
-    if (indice_instruccion_actual >= (*rutina_actual).size())
+    if (rutina_actual == rutinas.end() || indice_instruccion_actual >= (*rutina_actual).size())
         ejecutando = false;
 }
 
