@@ -2,6 +2,7 @@
 #define DRIVER_CALCULADORA_H
 
 #include <string>
+#include "Calculadora.h"
 
 using namespace std;
 
@@ -33,7 +34,8 @@ public:
 	int instanteActual() const;
 
 private:
-	// COMPLETAR
+	Programa p;
+    Rutina rutina_actual;
 };
 
 #endif

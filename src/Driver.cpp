@@ -1,7 +1,7 @@
 #include "Driver.h"
 
 Driver::Driver() {
-	// COMPLETAR
+    rutina_actual = "";
 }
 
 Driver::~Driver() {
@@ -11,43 +11,43 @@ Driver::~Driver() {
 // Operaciones para agregar instrucciones
 
 void Driver::begin(string rutina) {
-	// COMPLETAR
+    rutina_actual = rutina;
 }
 
 void Driver::end(string rutina) {
-	// COMPLETAR
+    rutina_actual = "";
 }
 
 void Driver::push(int n) {
-	// COMPLETAR
+    p.agregarInstruccion(rutina_actual, Instruccion(PUSH, n));
 }
 
 void Driver::add() {
-	// COMPLETAR
+    p.agregarInstruccion(rutina_actual, Instruccion(ADD));
 }
 
 void Driver::sub() {
-	// COMPLETAR
+    p.agregarInstruccion(rutina_actual, Instruccion(SUB));
 }
 
 void Driver::mul() {
-	// COMPLETAR
+    p.agregarInstruccion(rutina_actual, Instruccion(MUL));
 }
 
 void Driver::read(string variable) {
-	// COMPLETAR
+    p.agregarInstruccion(rutina_actual, Instruccion(READ, variable));
 }
 
 void Driver::write(string variable) {
-	// COMPLETAR
+    p.agregarInstruccion(rutina_actual, Instruccion(WRITE, variable));
 }
 
 void Driver::jump(string rutina) {
-	// COMPLETAR
+    p.agregarInstruccion(rutina_actual, Instruccion(JUMP, rutina));
 }
 
 void Driver::jumpz(string rutina) {
-	// COMPLETAR
+    p.agregarInstruccion(rutina_actual, Instruccion(JUMPZ, rutina));
 }
 
 // Operaciones para ejecutar programas
