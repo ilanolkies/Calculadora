@@ -35,12 +35,12 @@ public:
     Programa();
     void agregarInstruccion(Rutina r, Instruccion i);
     vector<Instruccion>& obtenerInstrucciones(Rutina r);
-    int longitudPrograma();
-    int longitudRutina(Rutina r);
-    int longitudTotal();
-    Rutina obtenerRutina(int i);
-    Iterator begin();
-    Iterator end();
+    int longitudPrograma() const;
+    int longitudRutina(Rutina r) const;
+    int longitudTotal() const;
+    Rutina obtenerRutina(int i) const;
+    Iterator begin() const;
+    Iterator end() const;
 };
 
 #endif //SOLUCION_PROGRAMA_H

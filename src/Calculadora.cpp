@@ -8,19 +8,19 @@ Calculadora::InstruccionCalculadora::InstruccionCalculadora(Instruccion i) :
     var(i.nombreVariable()),
     rutina(i.nombreRutina()) {}
 
-Operacion Calculadora::InstruccionCalculadora::op() {
+Operacion Calculadora::InstruccionCalculadora::op() const {
     return operacion;
 }
 
-int Calculadora::InstruccionCalculadora::constanteNumerica() {
+int Calculadora::InstruccionCalculadora::constanteNumerica() const {
     return num;
 }
 
-Variable& Calculadora::InstruccionCalculadora::nombreVariable() {
+Variable& Calculadora::InstruccionCalculadora::nombreVariable() const {
     return var;
 }
 
-Rutina& Calculadora::InstruccionCalculadora::nombreRutina() {
+Rutina& Calculadora::InstruccionCalculadora::nombreRutina() const {
     return rutina;
 }
 
@@ -32,11 +32,11 @@ void Calculadora::InstruccionCalculadora::agregarIteradorRutinas(IteradorRutinas
     it_rutina = it;
 }
 
-Calculadora::IteradorVariables Calculadora::InstruccionCalculadora::obtenerIteradorVariables() {
+Calculadora::IteradorVariables Calculadora::InstruccionCalculadora::obtenerIteradorVariables() const {
     return it_variable;
 }
 
-Calculadora::IteradorRutinas Calculadora::InstruccionCalculadora::obtenerIteradorRutinas() {
+Calculadora::IteradorRutinas Calculadora::InstruccionCalculadora::obtenerIteradorRutinas() const {
     return it_rutina;
 }
 
@@ -52,11 +52,11 @@ int Calculadora::Pila::pop() {
     return ret;
 }
 
-int Calculadora::Pila::size() {
+int Calculadora::Pila::size() const {
     return pila.size();
 }
 
-const stack<int>& Calculadora::Pila::getStack() {
+const stack<int>& Calculadora::Pila::getStack() const {
     return pila;
 }
 
@@ -125,7 +125,7 @@ Calculadora::Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ven
     }
 }
 
-bool Calculadora::finalizo() {
+bool Calculadora::finalizo() const {
     return !ejecutando;
 }
 
@@ -195,19 +195,19 @@ void Calculadora::asignarVariable(Variable v, int valor) {
     (*var).lista.push_back(ValorVariable(instante_actual, valor));
 }
 
-Instante Calculadora::instanteActual() {
+Instante Calculadora::instanteActual() const {
     return instante_actual;
 }
 
-Rutina& Calculadora::rutinaActual() {
+Rutina& Calculadora::rutinaActual() const {
     return nombre_rutina_actual;
 }
 
-int Calculadora::indiceActual() {
+int Calculadora::indiceActual() const {
     return indice_instruccion_actual;
 }
 
-int Calculadora::valorVariable(Variable v, Instante instante) {
+int Calculadora::valorVariable(Variable v, Instante instante) const {
     // Buscamos la variable en el trie O(|nombre|)
     IteradorVariables var = variables.buscar(v);
     // Si el instante buscado es mayor que el primer instante de la ventana, entonces esta
@@ -228,7 +228,7 @@ int Calculadora::valorVariable(Variable v, Instante instante) {
     }
 }
 
-int Calculadora::busqueda_binaria(const Ventana<ValorVariable>& ventana, Instante instante) {
+int Calculadora::busqueda_binaria(const Ventana<ValorVariable>& ventana, Instante instante) const {
     // UN EJEMPLITO
     // instante = 6
     // 1 3 5 8 99 100 200 1500
@@ -248,12 +248,12 @@ int Calculadora::busqueda_binaria(const Ventana<ValorVariable>& ventana, Instant
     }
 }
 
-int Calculadora::valorActual(Variable v) {
+int Calculadora::valorActual(Variable v) const {
     //Buscamos la variable y devolvemos el valor del ultimo instante en que se modifico
     IteradorVariables var = variables.buscar(v);
     return (*var).ventana[(*var).ventana.tam()-1].valor;
 }
 
-const stack<int>& Calculadora::pila() {
+const stack<int>& Calculadora::pila() const {
     return _pila.getStack();
 }

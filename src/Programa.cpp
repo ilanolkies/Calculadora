@@ -28,11 +28,11 @@ vector<Instruccion>& Programa::obtenerInstrucciones(Rutina r) {
     }
 }
 
-int Programa::longitudPrograma() {
+int Programa::longitudPrograma() const {
     return (int)rutinas.size();
 }
 
-int Programa::longitudRutina(Rutina r) {
+int Programa::longitudRutina(Rutina r) const {
     for(int i = 0; i < longitudPrograma(); i++) {
         if (rutinas[i].rutina == r) {
             return (int)rutinas[i].instrucciones.size();
@@ -40,22 +40,22 @@ int Programa::longitudRutina(Rutina r) {
     }
 }
 
-int Programa::longitudTotal() {
+int Programa::longitudTotal() const {
     int res = 0;
     for(int i = 0; i < longitudPrograma(); i++) {
         res += rutinas[i].instrucciones.size();
     }
 }
 
-Rutina Programa::obtenerRutina(int i) {
+Rutina Programa::obtenerRutina(int i) const {
     return rutinas[i].rutina;
 }
 
-Programa::Iterator Programa::begin() {
+Programa::Iterator Programa::begin() const {
     return Iterator(&rutinas, 0);
 }
 
-Programa::Iterator Programa::end() {
+Programa::Iterator Programa::end() const {
     return Iterator(&rutinas, (int)rutinas.size());
 }
 

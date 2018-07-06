@@ -1,18 +1,18 @@
 
 #include "Instruccion.h"
 
-Operacion Instruccion::op() {
+Operacion Instruccion::op() const {
     return operacion;
 }
 
-int Instruccion::constanteNumerica() {
+int Instruccion::constanteNumerica() const {
     return num;
 }
 
-Variable Instruccion::nombreVariable() {
+Variable Instruccion::nombreVariable() const {
     return var;
 }
 
-Rutina Instruccion::nombreRutina() {
+Rutina Instruccion::nombreRutina() const {
     return rutina;
 }

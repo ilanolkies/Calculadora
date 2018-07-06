@@ -36,6 +36,7 @@ public:
 private:
 	Programa p;
     Rutina rutina_actual;
+    Calculadora* calc;
 };
 
 #endif

@@ -54,7 +54,7 @@ typename DiccionarioString<T>::Iterator DiccionarioString<T>::agregar(string cla
 }
 
 template <typename T>
-typename DiccionarioString<T>::Iterator DiccionarioString<T>::buscar(string clave) {
+typename DiccionarioString<T>::Iterator DiccionarioString<T>::buscar(string clave) const {
     stack<Nodo*> p = buscar_pila(clave);
     Nodo* res = p.top();
     if (res != NULL && res->definicion != NULL) {
@@ -81,17 +81,17 @@ bool DiccionarioString<T>::Iterator::operator==(const Iterator &other) {
 }
 
 template <typename T>
-typename DiccionarioString<T>::Iterator DiccionarioString<T>::begin() {
+typename DiccionarioString<T>::Iterator DiccionarioString<T>::begin() const {
     return Iterator(raiz);
 }
 
 template <typename T>
-typename DiccionarioString<T>::Iterator DiccionarioString<T>::end() {
+typename DiccionarioString<T>::Iterator DiccionarioString<T>::end() const {
     return Iterator(NULL);
 }
 
 template <typename T>
-stack< typename DiccionarioString<T>::Nodo* > DiccionarioString<T>::buscar_pila(const string& word){
+stack< typename DiccionarioString<T>::Nodo* > DiccionarioString<T>::buscar_pila(const string& word) const {
     Nodo* actual = raiz;
     int pos_actual = 0;
     stack<Nodo*> p;

@@ -13,10 +13,10 @@ public:
     Instruccion(Operacion o) : operacion(o) {};
     Instruccion(Operacion o, int n) : operacion(o), num(n) {};
     Instruccion(Operacion o, string v) : operacion(o), var(v), rutina(v) {};
-    Operacion op();
-    int constanteNumerica();
-    Variable nombreVariable();
-    Rutina nombreRutina();
+    Operacion op() const;
+    int constanteNumerica() const;
+    Variable nombreVariable() const;
+    Rutina nombreRutina() const;
 };
 
 #endif //SOLUCION_INSTRUCCION_H

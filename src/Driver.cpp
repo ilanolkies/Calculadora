@@ -2,10 +2,12 @@
 
 Driver::Driver() {
     rutina_actual = "";
+    calc = NULL;
 }
 
 Driver::~Driver() {
-	// COMPLETAR
+    if (calc != NULL)
+        delete calc;
 }
 
 // Operaciones para agregar instrucciones
@@ -53,19 +55,19 @@ void Driver::jumpz(string rutina) {
 // Operaciones para ejecutar programas
 
 void Driver::comenzarEjecucion(string rutina, int capacidadVentana) {
-	// COMPLETAR
+    calc = new Calculadora(p, rutina, capacidadVentana);
 }
 
 void Driver::asignarVariable(string x, int valor) {
-	// COMPLETAR
+    (*calc).asignarVariable(x, valor);
 }
 
 bool Driver::ejecucionFinalizada() const {
-	// COMPLETAR
+    return (*calc).finalizo();
 }
 
 void Driver::ejecutarInstruccionActual() {
-	// COMPLETAR
+
 }
 
 int Driver::topePila() const {

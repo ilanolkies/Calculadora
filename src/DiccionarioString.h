@@ -19,7 +19,7 @@ private:
         T* definicion;
     };
 
-    stack<Nodo*> buscar_pila(const string& clave);
+    stack<Nodo*> buscar_pila(const string& clave) const;
     void borrar_nodo(Nodo* nodo);
 
     Nodo* raiz;
@@ -40,9 +40,9 @@ public:
     DiccionarioString();
     ~DiccionarioString();
     Iterator agregar(string clave, T& valor);
-    Iterator buscar(string clave);
-    Iterator begin();
-    Iterator end();
+    Iterator buscar(string clave) const;
+    Iterator begin() const;
+    Iterator end() const;
 };
 
 #include "DiccionarioString.hpp"

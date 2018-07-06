@@ -21,8 +21,8 @@ private:
     public:
         void push(int elem);
         int pop();
-        int size();
-        const stack<int>& getStack();
+        int size() const;
+        const stack<int>& getStack() const;
     };
 
     typedef vector<InstruccionCalculadora> ConjInstrucciones;
@@ -69,28 +69,28 @@ private:
         IteradorRutinas it_rutina;
     public:
         InstruccionCalculadora(Instruccion i);
-        Operacion op();
-        int constanteNumerica();
-        Variable& nombreVariable();
-        Rutina& nombreRutina();
+        Operacion op() const;
+        int constanteNumerica() const;
+        Variable& nombreVariable() const;
+        Rutina& nombreRutina() const;
         void agregarIteradorVariables(IteradorVariables it);
         void agregarIteradorRutinas(IteradorRutinas it);
-        IteradorVariables obtenerIteradorVariables();
-        IteradorRutinas obtenerIteradorRutinas();
+        IteradorVariables obtenerIteradorVariables() const;
+        IteradorRutinas obtenerIteradorRutinas() const;
     };
 
-    int busqueda_binaria(const Ventana<ValorVariable>& ventana, Instante instante);
+    int busqueda_binaria(const Ventana<ValorVariable>& ventana, Instante instante) const;
 public:
     Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ventana);
-    bool finalizo();
+    bool finalizo() const;
     void ejeutar();
     void asignarVariable(Variable v, int valor);
-    Instante instanteActual();
-    Rutina& rutinaActual();
-    int indiceActual();
-    int valorVariable(Variable v, Instante instante);
-    int valorActual(Variable v);
-    const stack<int>& pila();
+    Instante instanteActual() const;
+    Rutina& rutinaActual() const;
+    int indiceActual() const;
+    int valorVariable(Variable v, Instante instante) const;
+    int valorActual(Variable v) const;
+    const stack<int>& pila() const;
 };
 
 #endif //SOLUCION_CALCULADORA_H
