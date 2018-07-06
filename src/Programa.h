@@ -39,8 +39,8 @@ public:
     int longitudRutina(Rutina r) const;
     int longitudTotal() const;
     Rutina obtenerRutina(int i) const;
-    Iterator begin() const;
-    Iterator end() const;
+    Iterator begin();
+    Iterator end();
 };
 
 #endif //SOLUCION_PROGRAMA_H

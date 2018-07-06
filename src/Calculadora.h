@@ -71,8 +71,8 @@ private:
         InstruccionCalculadora(Instruccion i);
         Operacion op() const;
         int constanteNumerica() const;
-        Variable& nombreVariable() const;
-        Rutina& nombreRutina() const;
+        const Variable& nombreVariable() const;
+        const Rutina& nombreRutina() const;
         void agregarIteradorVariables(IteradorVariables it);
         void agregarIteradorRutinas(IteradorRutinas it);
         IteradorVariables obtenerIteradorVariables() const;
@@ -86,7 +86,7 @@ public:
     void ejeutar();
     void asignarVariable(Variable v, int valor);
     Instante instanteActual() const;
-    Rutina& rutinaActual() const;
+    const Rutina& rutinaActual() const;
     int indiceActual() const;
     int valorVariable(Variable v, Instante instante) const;
     int valorActual(Variable v) const;

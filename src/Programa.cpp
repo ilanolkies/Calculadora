@@ -51,11 +51,11 @@ Rutina Programa::obtenerRutina(int i) const {
     return rutinas[i].rutina;
 }
 
-Programa::Iterator Programa::begin() const {
+Programa::Iterator Programa::begin() {
     return Iterator(&rutinas, 0);
 }
 
-Programa::Iterator Programa::end() const {
+Programa::Iterator Programa::end() {
     return Iterator(&rutinas, (int)rutinas.size());
 }
 

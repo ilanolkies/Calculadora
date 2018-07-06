@@ -16,11 +16,11 @@ int Calculadora::InstruccionCalculadora::constanteNumerica() const {
     return num;
 }
 
-Variable& Calculadora::InstruccionCalculadora::nombreVariable() const {
+const Variable& Calculadora::InstruccionCalculadora::nombreVariable() const {
     return var;
 }
 
-Rutina& Calculadora::InstruccionCalculadora::nombreRutina() const {
+const Rutina& Calculadora::InstruccionCalculadora::nombreRutina() const {
     return rutina;
 }
 
@@ -199,7 +199,7 @@ Instante Calculadora::instanteActual() const {
     return instante_actual;
 }
 
-Rutina& Calculadora::rutinaActual() const {
+const Rutina& Calculadora::rutinaActual() const {
     return nombre_rutina_actual;
 }
 
