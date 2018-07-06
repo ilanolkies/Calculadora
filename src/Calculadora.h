@@ -53,7 +53,7 @@ private:
     Rutina nombre_rutina_actual;
     bool ejecutando;
 
-    class InstruccionCaculadora {
+    class InstruccionCalculadora {
     private:
         Operacion operacion;
         int num;
@@ -62,7 +62,7 @@ private:
         IteradorVariables it_variable;
         IteradorRutinas it_rutina;
     public:
-        InstruccionCaculadora(Instruccion i);
+        InstruccionCalculadora(Instruccion i);
         Operacion op();
         int constanteNumerica();
         Variable& nombreVariable();

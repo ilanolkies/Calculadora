@@ -90,7 +90,7 @@ template <typename T>
 void DiccionarioString<T>::borrar_nodo(DiccionarioString<T>::Nodo *nodo) {
     for (int x = 0; x < SIZE; ++x) {
         if (nodo->siguientes[x] != NULL) {
-            borrar_nodo(nodo->siguientes[x], true);
+            borrar_nodo(nodo->siguientes[x]);
             nodo->siguientes[x] = NULL;
         }
     }
