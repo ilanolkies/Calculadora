@@ -31,17 +31,23 @@ private:
     struct ValorVariable {
         Instante instante;
         int valor;
+
+        ValorVariable(Instante i, int v) : instante(i), valor(v) {}
     };
 
     struct InfoVariables {
         Ventana<ValorVariable> ventana;
         list<ValorVariable> lista;
+
+        InfoVariables(Ventana<ValorVariable> v, list<ValorVariable> l) : ventana(v), lista(l) {}
     };
 
     typedef DiccionarioString<ConjInstrucciones> DiccionarioRutinas;
     typedef DiccionarioString<InfoVariables> DiccionarioVariables;
     typedef DiccionarioRutinas::Iterator IteradorRutinas;
     typedef DiccionarioVariables::Iterator IteradorVariables;
+
+    typedef Programa::Iterator IteradorPrograma;
 
     Programa programa;
     DiccionarioRutinas rutinas;
@@ -73,7 +79,7 @@ private:
         IteradorRutinas obtenerIteradorRutinas();
     };
 public:
-    Calculadora(Rutina rutina_inicial, int capacidad_de_ventana);
+    Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ventana);
     bool finalizo();
     void ejeutar();
     void asignarVariable(Variable v, int valor);

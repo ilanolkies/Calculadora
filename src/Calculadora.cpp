@@ -64,8 +64,67 @@ const stack<int>& Calculadora::Pila::getStack() {
 
 // CALCULADORA
 
-Calculadora::Calculadora(Rutina rutina_inicial, int capacidad_de_ventana) {
+Calculadora::Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ventana) {
+    //Inicializaciones basicas
+    instante_actual = 0;
+    indice_instruccion_actual = 0;
+    nombre_rutina_actual = rutina_inicial;
+    programa = p;
+    ejecutando = true;
 
+    //Inicializamos las rutinas
+    IteradorPrograma it_programa = p.begin();
+    //Recorremos el programa (esto se repite #p veces)
+    while (it_programa != p.end()) {
+        ConjInstrucciones por_defecto;
+        //Definimos el default de todas las rutinas para poder agregarles elementos, esto cuesta O(|R|)
+        IteradorRutinas it = rutinas.agregar((*it_programa).rutina, por_defecto);
+        //Definimos la rutina_actual si la rutina es la seleccionada para iniciar la ejecucion
+        if ((*it_programa).rutina == nombre_rutina_actual) {
+            rutina_actual = it;
+        }
+        ++it_programa;
+    }
+
+    //Comenzamos a recorrer las rutinas del programa...
+    it_programa  = p.begin();
+    while (it_programa != p.end()) {
+        //Busco la rutina en el diccionario para poder agregarle las instrucciones (esto cuesta O(|R|))
+        IteradorRutinas rutina_act = rutinas.buscar((*it_programa).rutina);
+        //Para cada rutina recorremos las instrucciones
+        for(int i = 0; 0 < (*it_programa).instrucciones.size(); i++) {
+            //Esto se va a repetir #p veces
+            Instruccion instruccion = (*it_programa).instrucciones[i];
+            InstruccionCalculadora nueva_instruccion = InstruccionCalculadora(instruccion);
+            if (instruccion.op() == READ || instruccion.op() == WRITE) {
+                // Si son instrucciones que utilizan variables:
+                // - Agregamos las variables al trie con un valor inicial en cero
+                //(Esto cuesta O(|V|))
+                // - Guardamos en la instruccion el iterador a esa variable
+                //asi consultarla es O(1)
+                Ventana< ValorVariable > v =  Ventana(capacidad_de_ventana);
+                v.registrar(ValorVariable(0, 0));
+                list<ValorVariable> l;
+                l.push_back(ValorVariable(0, 0));
+                InfoVariables Nodo = InfoVariables(v, l);
+                IteradorVariables it_variables = variables.agregar(instruccion.nombreVariable(), Nodo);
+                nueva_instruccion.agregarIteradorVariables(it_variables);
+            }
+            if (instruccion.op() == JUMP || instruccion.op() == JUMPZ) {
+                // Si son instrucciones que utilizan rutinas:
+                // Guardamos en la instruccion el iterador a la rutina correspondiente
+                // (Esto cuesta O(|R|) porque hay que buscarla)
+                // Si la rutina no existe, el iterador es el end(p)
+                Rutina r = instruccion.nombreRutina();
+                IteradorRutinas it_rutina = rutinas.buscar(r);
+                nueva_instruccion.agregarIteradorRutinas(it_rutina);
+            }
+            // Agregar al vector es O(1) amortizado
+            // Pero como agregamos todas las instrucciones juntas, es O(#instrucciones) en total
+            (*rutina_act).push_back(nueva_instruccion);
+        }
+        ++it_programa;
+    }
 }
 
 bool Calculadora::finalizo() {
