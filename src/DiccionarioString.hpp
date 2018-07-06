@@ -57,7 +57,11 @@ template <typename T>
 typename DiccionarioString<T>::Iterator DiccionarioString<T>::buscar(string clave) {
     stack<Nodo*> p = buscar_pila(clave);
     Nodo* res = p.top();
-    return Iterator(res);
+    if (res != NULL && res->definicion != NULL) {
+        return Iterator(res);
+    } else {
+        return end();
+    }
 }
 
 template <typename T>
@@ -69,6 +73,21 @@ DiccionarioString<T>::Iterator::Iterator() : nodo(NULL) {}
 template <typename T>
 T& DiccionarioString<T>::Iterator::operator*() {
     return *(nodo->definicion);
+}
+
+template <typename T>
+bool DiccionarioString<T>::Iterator::operator==(const Iterator &other) {
+    return nodo == other.nodo;
+}
+
+template <typename T>
+typename DiccionarioString<T>::Iterator DiccionarioString<T>::begin() {
+    return Iterator(raiz);
+}
+
+template <typename T>
+typename DiccionarioString<T>::Iterator DiccionarioString<T>::end() {
+    return Iterator(NULL);
 }
 
 template <typename T>

@@ -20,8 +20,7 @@ private:
         stack<int> pila;
     public:
         void push(int elem);
-        int top();
-        void pop();
+        int pop();
         int size();
         const stack<int>& getStack();
     };

@@ -46,12 +46,10 @@ void Calculadora::Pila::push(int elem) {
     pila.push(elem);
 }
 
-int Calculadora::Pila::top() {
-    return pila.top();
-}
-
-void Calculadora::Pila::pop() {
+int Calculadora::Pila::pop() {
+    int ret = pila.top();
     pila.pop();
+    return ret;
 }
 
 int Calculadora::Pila::size() {
@@ -132,7 +130,62 @@ bool Calculadora::finalizo() {
 }
 
 void Calculadora::ejeutar() {
+    InstruccionCalculadora i = (*rutina_actual)[indice_instruccion_actual];
+    switch(i.op()) {
+        case PUSH: {
+            _pila.push(i.constanteNumerica());
+            break;
+        } case ADD: {
+            _pila.push(_pila.pop() + _pila.pop());
+            break;
+        } case SUB: {
+            _pila.push(_pila.pop() - _pila.pop());
+            break;
+        } case MUL: {
+            _pila.push(_pila.pop() * _pila.pop());
+            break;
+        } case READ: {
+            // Ya tenemos el iterador que apunta a la ventana de instantes asi que buscamos el ultimo
+            // instante y lo agregamos a la pila
+            IteradorVariables variable = i.obtenerIteradorVariables();
+            _pila.push((*variable).ventana[(*variable).ventana.tam() - 1].valor);
+            break;
+        } case WRITE: {
+            // Ya tenemos el iterador a la ventana y a la lista asi que agregamos el instante actual con el valor extraido de la pila
+            (*i.obtenerIteradorVariables()).ventana.registrar(ValorVariable(instante_actual, _pila.pop()));
+            (*i.obtenerIteradorVariables()).lista.push_back(ValorVariable(instante_actual, _pila.pop()));
+            break;
+        } case JUMP: {
+            // Ya tenemos el iterador de la rutina en la instruccion asi que lo buscamos y lo seteamos como rutina actual
+            // Si el iterador es end() entonces es una rutina invalida asi que terminamos el programa
+            // Definimos la instruccion actual en -1 porque al final hay un instruccion_actual++ y asi la prox instruccion es cero
+            nombre_rutina_actual = i.nombreRutina();
 
+            rutina_actual = i.obtenerIteradorRutinas();
+            if (rutina_actual == rutinas.end()) {
+                ejecutando = false;
+            }
+            indice_instruccion_actual = -1;
+            break;
+        } case JUMPZ: {
+            // Igual que el jump pero verificando la pila
+            if (_pila.pop() == 0) {
+                nombre_rutina_actual = i.nombreRutina();
+                rutina_actual = i.obtenerIteradorRutinas();
+                if (rutina_actual == rutinas.end()) {
+                    ejecutando = false;
+                }
+                indice_instruccion_actual = -1;
+            }
+            break;
+        }
+    }
+    // Aumentamos instruccion actual e instante
+    indice_instruccion_actual++;
+    instante_actual++;
+    // Si termino la rutina, termino el programa
+    if (indice_instruccion_actual >  (*rutina_actual).size())
+        ejecutando = false;
 }
 
 void Calculadora::asignarVariable(Variable v, int valor) {

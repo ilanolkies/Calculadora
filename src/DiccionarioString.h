@@ -34,12 +34,15 @@ public:
     public:
         Iterator();
         T& operator*();
+        bool operator==(const Iterator& other);
     };
 
     DiccionarioString();
     ~DiccionarioString();
     Iterator agregar(string clave, T& valor);
     Iterator buscar(string clave);
+    Iterator begin();
+    Iterator end();
 };
 
 #include "DiccionarioString.hpp"
