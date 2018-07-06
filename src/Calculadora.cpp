@@ -136,7 +136,10 @@ void Calculadora::ejeutar() {
 }
 
 void Calculadora::asignarVariable(Variable v, int valor) {
-
+    // Buscamos la variable y le agregamos a la ventana y a la lista un nuevo valor en el instante actual (buscarla cuesta O(|x|))
+    IteradorVariables var = variables.buscar(v);
+    (*var).ventana.registrar(ValorVariable(instante_actual, valor));
+    (*var).lista.push_back(ValorVariable(instante_actual, valor));
 }
 
 Instante Calculadora::instanteActual() {
