@@ -5,9 +5,12 @@ void Pila::push(int elem) {
 }
 
 int Pila::pop() {
-    int ret = pila.top();
-    pila.pop();
-    return ret;
+    if(pila.size()) {
+        int top = pila.top();
+        pila.pop();
+        return top;
+    }
+    return 0;
 }
 
 int Pila::size() const {
