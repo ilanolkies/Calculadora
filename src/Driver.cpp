@@ -67,22 +67,22 @@ bool Driver::ejecucionFinalizada() const {
 }
 
 void Driver::ejecutarInstruccionActual() {
-
+    (*calc).ejeutar();
 }
 
 int Driver::topePila() const {
-	// COMPLETAR
+    return (*calc).pila().top();
 }
 
 int Driver::valorVariable(string x) const {
-	// COMPLETAR
+    return (*calc).valorActual(x);
 }
 
 int Driver::valorHistoricoVariable(string x, int t) const {
-	// COMPLETAR
+    return (*calc).valorVariable(x, t);
 }
 
 int Driver::instanteActual() const {
-	// COMPLETAR
+    return (*calc).instanteActual();
 }
 
