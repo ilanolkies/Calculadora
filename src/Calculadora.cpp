@@ -1,4 +1,5 @@
 #include "Calculadora.h"
+#include "Pila.h"
 
 // INSTRUCCION CALCULADORA
 
@@ -40,26 +41,6 @@ Calculadora::IteradorRutinas Calculadora::InstruccionCalculadora::obtenerIterado
     return it_rutina;
 }
 
-// PILA
-
-void Calculadora::Pila::push(int elem) {
-    pila.push(elem);
-}
-
-int Calculadora::Pila::pop() {
-    int ret = pila.top();
-    pila.pop();
-    return ret;
-}
-
-int Calculadora::Pila::size() const {
-    return pila.size();
-}
-
-const stack<int>& Calculadora::Pila::getStack() const {
-    return pila;
-}
-
 // CALCULADORA
 
 Calculadora::Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ventana) {
@@ -68,7 +49,7 @@ Calculadora::Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ven
     indice_instruccion_actual = 0;
     nombre_rutina_actual = rutina_inicial;
     programa = p;
-    ejecutando = true;
+    ejecutando = p.longitudTotal() > 0 && p.longitudRutina(rutina_inicial) > 0;
 
     //Inicializamos las rutinas
     IteradorPrograma it_programa = p.begin();
@@ -254,6 +235,6 @@ int Calculadora::valorActual(Variable v) const {
     return (*var).ventana[(*var).ventana.tam()-1].valor;
 }
 
-const stack<int>& Calculadora::pila() const {
-    return _pila.getStack();
+const Pila & Calculadora::pila() const {
+    return _pila;
 }

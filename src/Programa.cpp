@@ -38,6 +38,7 @@ int Programa::longitudRutina(Rutina r) const {
             return (int)rutinas[i].instrucciones.size();
         }
     }
+    return 0;
 }
 
 int Programa::longitudTotal() const {

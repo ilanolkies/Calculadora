@@ -59,30 +59,30 @@ void Driver::comenzarEjecucion(string rutina, int capacidadVentana) {
 }
 
 void Driver::asignarVariable(string x, int valor) {
-    (*calc).asignarVariable(x, valor);
+    calc->asignarVariable(x, valor);
 }
 
 bool Driver::ejecucionFinalizada() const {
-    return (*calc).finalizo();
+    return calc->finalizo();
 }
 
 void Driver::ejecutarInstruccionActual() {
-    (*calc).ejeutar();
+    calc->ejeutar();
 }
 
 int Driver::topePila() const {
-    return (*calc).pila().top();
+    return calc->pila().top();
 }
 
 int Driver::valorVariable(string x) const {
-    return (*calc).valorActual(x);
+    return calc->valorActual(x);
 }
 
 int Driver::valorHistoricoVariable(string x, int t) const {
-    return (*calc).valorVariable(x, t);
+    return calc->valorVariable(x, t);
 }
 
 int Driver::instanteActual() const {
-    return (*calc).instanteActual();
+    return calc->instanteActual();
 }
 

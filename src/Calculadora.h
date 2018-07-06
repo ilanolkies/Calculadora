@@ -10,20 +10,24 @@
 #include "DiccionarioString.h"
 #include "Ventana.h"
 #include "Instruccion.h"
+#include "Pila.h"
 
 class Calculadora {
+public:
+    Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ventana);
+
+    bool finalizo() const;
+    void ejeutar();
+    void asignarVariable(Variable v, int valor);
+
+    Instante instanteActual() const;
+    const Rutina& rutinaActual() const;
+    int indiceActual() const;
+    int valorVariable(Variable v, Instante instante) const;
+    int valorActual(Variable v) const;
+    const Pila & pila() const;
 private:
     class InstruccionCalculadora;
-
-    class Pila {
-    private:
-        stack<int> pila;
-    public:
-        void push(int elem);
-        int pop();
-        int size() const;
-        const stack<int>& getStack() const;
-    };
 
     typedef vector<InstruccionCalculadora> ConjInstrucciones;
 
@@ -80,17 +84,6 @@ private:
     };
 
     int busqueda_binaria(const Ventana<ValorVariable>& ventana, Instante instante) const;
-public:
-    Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ventana);
-    bool finalizo() const;
-    void ejeutar();
-    void asignarVariable(Variable v, int valor);
-    Instante instanteActual() const;
-    const Rutina& rutinaActual() const;
-    int indiceActual() const;
-    int valorVariable(Variable v, Instante instante) const;
-    int valorActual(Variable v) const;
-    const stack<int>& pila() const;
 };
 
 #endif //SOLUCION_CALCULADORA_H
