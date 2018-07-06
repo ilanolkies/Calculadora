@@ -71,7 +71,7 @@ Calculadora::Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ven
         //Busco la rutina en el diccionario para poder agregarle las instrucciones (esto cuesta O(|R|))
         IteradorRutinas rutina_act = rutinas.buscar((*it_programa).rutina);
         //Para cada rutina recorremos las instrucciones
-        for(int i = 0; 0 < (*it_programa).instrucciones.size(); i++) {
+        for(int i = 0; i < (*it_programa).instrucciones.size(); i++) {
             //Esto se va a repetir #p veces
             Instruccion instruccion = (*it_programa).instrucciones[i];
             InstruccionCalculadora nueva_instruccion = InstruccionCalculadora(instruccion);
@@ -165,7 +165,7 @@ void Calculadora::ejeutar() {
     indice_instruccion_actual++;
     instante_actual++;
     // Si termino la rutina, termino el programa
-    if (indice_instruccion_actual >  (*rutina_actual).size())
+    if (indice_instruccion_actual >= (*rutina_actual).size())
         ejecutando = false;
 }
 
