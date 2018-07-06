@@ -102,7 +102,7 @@ Calculadora::Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ven
                 //(Esto cuesta O(|V|))
                 // - Guardamos en la instruccion el iterador a esa variable
                 //asi consultarla es O(1)
-                Ventana< ValorVariable > v =  Ventana(capacidad_de_ventana);
+                Ventana< ValorVariable > v =  Ventana< ValorVariable >(capacidad_de_ventana);
                 v.registrar(ValorVariable(0, 0));
                 list<ValorVariable> l;
                 l.push_back(ValorVariable(0, 0));

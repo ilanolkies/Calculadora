@@ -47,9 +47,8 @@ typename DiccionarioString<T>::Iterator DiccionarioString<T>::agregar(string cla
             res = res->siguientes[int(clave[key_pos])];
             key_pos++;
         }
-        res->definicion = new T();
+        res->definicion = new T(valor);
         _size++;
-        *(res->definicion) = valor;
         return Iterator(res);
     }
 }
@@ -69,7 +68,7 @@ DiccionarioString<T>::Iterator::Iterator() : nodo(NULL) {}
 
 template <typename T>
 T& DiccionarioString<T>::Iterator::operator*() {
-    return nodo->definicion;
+    return *(nodo->definicion);
 }
 
 template <typename T>

@@ -74,3 +74,7 @@ EstructuraRutina& Programa::Iterator::operator--() {
 EstructuraRutina& Programa::Iterator::operator*() {
     return (*rutinas)[rutina];
 }
+
+bool Programa::Iterator::operator!=(const Iterator &other) {
+    return rutinas != other.rutinas || rutina != other.rutina;
+}

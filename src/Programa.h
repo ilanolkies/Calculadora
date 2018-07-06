@@ -29,6 +29,7 @@ public:
         EstructuraRutina& operator++();
         EstructuraRutina& operator--();
         EstructuraRutina& operator*();
+        bool operator!=(const Iterator& other);
     };
 
     Programa();

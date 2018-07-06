@@ -40,6 +40,7 @@ private:
         list<ValorVariable> lista;
 
         InfoVariables(Ventana<ValorVariable> v, list<ValorVariable> l) : ventana(v), lista(l) {}
+        InfoVariables(const InfoVariables& copia) : ventana(copia.ventana), lista(copia.lista) {};
     };
 
     typedef DiccionarioString<ConjInstrucciones> DiccionarioRutinas;
