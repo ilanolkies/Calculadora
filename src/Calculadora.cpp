@@ -159,7 +159,9 @@ int Calculadora::valorVariable(Variable v, Instante instante) {
 }
 
 int Calculadora::valorActual(Variable v) {
-
+    //Buscamos la variable y devolvemos el valor del ultimo instante en que se modifico
+    IteradorVariables var = variables.buscar(v);
+    return (*var).ventana[(*var).ventana.tam()-1].valor;
 }
 
 const stack<int>& Calculadora::pila() {
