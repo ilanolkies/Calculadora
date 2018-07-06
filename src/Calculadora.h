@@ -79,6 +79,8 @@ private:
         IteradorVariables obtenerIteradorVariables();
         IteradorRutinas obtenerIteradorRutinas();
     };
+
+    int busqueda_binaria(const Ventana<ValorVariable>& ventana, Instante instante);
 public:
     Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ventana);
     bool finalizo();

@@ -155,7 +155,44 @@ int Calculadora::indiceActual() {
 }
 
 int Calculadora::valorVariable(Variable v, Instante instante) {
+    // Buscamos la variable en el trie O(|nombre|)
+    IteradorVariables var = variables.buscar(v);
+    // Si el instante buscado es mayor que el primer instante de la ventana, entonces esta
+    // Porque los instantes estan ordenados de menor a mayor ya que los agregamos asi. Por eso tambien podemos usar busqueda binaria
+    if (instante >= (*var).ventana[0].instante) {
+        // Busqueda binaria en la ventana con las ultimas <capacidad de ventana> veces que se modifico
+        // O(log(capacidad de ventana))
+        int pos_resultado = busqueda_binaria((*var).ventana, instante);
+        return (*var).ventana[pos_resultado].valor;
+    } else {
+        //Esto significa que no esta en la ventana asi que hay que buscarlo en la lista, esto es O(instante_actual) pero no me importa
+        list<ValorVariable>& l = (*var).lista;
+        list<ValorVariable>::iterator actual = l.begin();
+        while (actual != l.end() && (*actual).instante < instante) {
+            ++actual;
+        }
+        return (*actual).valor;
+    }
+}
 
+int Calculadora::busqueda_binaria(const Ventana<ValorVariable>& ventana, Instante instante) {
+    // UN EJEMPLITO
+    // instante = 6
+    // 1 3 5 8 99 100 200 1500
+    // L                   R
+    // L     R
+    //   L   R
+    //     L R
+    // DEVUELVE EL MENOR NUMERO MAS CERCANO
+    int L = 0;
+    int R = ventana.tam() - 1;
+    while (R - L > 1) {
+        if (instante > ventana[L + (R - L) / 2].instante)
+            L = L + (R - L) / 2;
+        else
+            R = L + (R - L) / 2;
+        return L;
+    }
 }
 
 int Calculadora::valorActual(Variable v) {
