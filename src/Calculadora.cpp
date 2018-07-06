@@ -171,9 +171,11 @@ void Calculadora::ejeutar() {
 
 void Calculadora::asignarVariable(Variable v, int valor) {
     // Buscamos la variable y le agregamos a la ventana y a la lista un nuevo valor en el instante actual (buscarla cuesta O(|x|))
+    ValorVariable variable = ValorVariable(instante_actual, valor);
+
     IteradorVariables var = variables.buscar(v);
-    (*var).ventana.registrar(ValorVariable(instante_actual, valor));
-    (*var).lista.push_back(ValorVariable(instante_actual, valor));
+    (*var).ventana.registrar(variable);
+    (*var).lista.push_back(variable);
 }
 
 Instante Calculadora::instanteActual() const {
@@ -202,10 +204,18 @@ int Calculadora::valorVariable(Variable v, Instante instante) const {
         //Esto significa que no esta en la ventana asi que hay que buscarlo en la lista, esto es O(instante_actual) pero no me importa
         list<ValorVariable>& l = (*var).lista;
         list<ValorVariable>::iterator actual = l.begin();
-        while (actual != l.end() && (*actual).instante < instante) {
-            ++actual;
+
+        while (actual != l.end()) {
+            if ((*actual).instante == instante)
+                return (*actual).valor;
+            else if ((*actual).instante > instante) {
+                actual--;
+                return (*actual).valor;
+            }
+            actual++;
         }
-        return (*actual).valor;
+
+        return 0;
     }
 }
 
@@ -219,14 +229,14 @@ int Calculadora::busqueda_binaria(const Ventana<ValorVariable>& ventana, Instant
     //     L R
     // DEVUELVE EL MENOR NUMERO MAS CERCANO
     int L = 0;
-    int R = ventana.tam() - 1;
+    int R = ventana.tam();
     while (R - L > 1) {
-        if (instante > ventana[L + (R - L) / 2].instante)
+        if (instante >= ventana[L + (R - L) / 2].instante)
             L = L + (R - L) / 2;
         else
             R = L + (R - L) / 2;
-        return L;
     }
+    return L;
 }
 
 int Calculadora::valorActual(Variable v) const {
