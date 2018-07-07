@@ -120,7 +120,9 @@ void Calculadora::ejeutar() {
             _pila.push(_pila.pop() + _pila.pop());
             break;
         } case SUB: {
-            _pila.push(- _pila.pop() + _pila.pop());
+            int first = _pila.pop();
+            int second = _pila.pop();
+            _pila.push(second - first);
             break;
         } case MUL: {
             _pila.push(_pila.pop() * _pila.pop());
