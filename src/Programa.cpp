@@ -46,6 +46,7 @@ int Programa::longitudTotal() const {
     for(int i = 0; i < longitudPrograma(); i++) {
         res += rutinas[i].instrucciones.size();
     }
+    return res;
 }
 
 Rutina Programa::obtenerRutina(int i) const {
