@@ -2,6 +2,8 @@
 
 #include "../src/Instruccion.h"
 
+//INSTRUCCION
+
 TEST(test_instruccion, add){
     Instruccion* instruccion = new Instruccion(ADD);
 
@@ -32,3 +34,9 @@ TEST(test_instruccion, jumpz){
     ASSERT_EQ(instruccion->op(), JUMPZ);
 }
 
+TEST(test_instruccion, push){
+    Instruccion* instruccion = new Instruccion(PUSH, 10);
+
+    ASSERT_EQ(instruccion->op(), PUSH);
+    ASSERT_EQ(instruccion->constanteNumerica(), 10);
+}
