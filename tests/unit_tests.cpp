@@ -71,3 +71,29 @@ TEST(test_programa, vacia) {
 
     ASSERT_EQ(p->longitudPrograma(), 0);
 }
+
+TEST(test_programa, una_insturccion) {
+    Programa *p = new Programa;
+
+    for (int i = 0; i < rutinas.size(); ++i)
+        ASSERT_EQ(p->longitudRutina(rutinas[i]),0);
+
+    ASSERT_EQ(p->longitudTotal(), 0);
+
+    ASSERT_EQ(p->longitudPrograma(), 0);
+
+    p->agregarInstruccion("a", Instruccion(ADD));
+
+    ASSERT_EQ(p->obtenerInstrucciones("a").size(), 1);
+    ASSERT_EQ(p->obtenerInstrucciones("a")[0].op(), ADD);
+
+    ASSERT_EQ(p->longitudPrograma(), 1);
+    ASSERT_EQ(p->longitudRutina("a"), 1);
+    ASSERT_EQ(p->longitudTotal(), 1);
+    ASSERT_EQ(p->obtenerRutina(0), "a");
+
+    auto it = p->begin();
+    ASSERT_EQ((*it).instrucciones[0].op(), ADD);
+    ++it;
+    ASSERT_FALSE(it != p->end());
+}
