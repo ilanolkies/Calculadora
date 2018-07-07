@@ -14,3 +14,9 @@ TEST(test_instruccion, sub){
     ASSERT_EQ(instruccion->op(), SUB);
 }
 
+TEST(test_instruccion, mul){
+    Instruccion* instruccion = new Instruccion(MUL);
+
+    ASSERT_EQ(instruccion->op(), MUL);
+}
+
