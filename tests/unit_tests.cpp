@@ -25,3 +25,10 @@ TEST(test_instruccion, jump){
 
     ASSERT_EQ(instruccion->op(), JUMP);
 }
+
+TEST(test_instruccion, jumpz){
+    Instruccion* instruccion = new Instruccion(JUMPZ);
+
+    ASSERT_EQ(instruccion->op(), JUMPZ);
+}
+
