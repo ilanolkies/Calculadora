@@ -49,3 +49,10 @@ TEST(test_instruccion, read){
     ASSERT_EQ(instruccion->op(), READ);
     ASSERT_EQ(instruccion->nombreVariable(), "x");
 }
+
+TEST(test_instruccion, write){
+    Instruccion* instruccion = new Instruccion(WRITE, "x");
+
+    ASSERT_EQ(instruccion->op(), WRITE);
+    ASSERT_EQ(instruccion->nombreVariable(), "x");
+}
