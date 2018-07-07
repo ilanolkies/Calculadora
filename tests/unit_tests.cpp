@@ -2,7 +2,7 @@
 
 #include "../src/Instruccion.h"
 
-TEST(test_instruccion, sin_operandos){
+TEST(test_instruccion, add){
     Instruccion* instruccion = new Instruccion(ADD);
 
     ASSERT_EQ(instruccion->op(), ADD);
