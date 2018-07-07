@@ -20,3 +20,8 @@ TEST(test_instruccion, mul){
     ASSERT_EQ(instruccion->op(), MUL);
 }
 
+TEST(test_instruccion, jump){
+    Instruccion* instruccion = new Instruccion(JUMP);
+
+    ASSERT_EQ(instruccion->op(), JUMP);
+}
