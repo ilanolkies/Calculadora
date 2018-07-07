@@ -43,3 +43,9 @@ TEST(test_instruccion, push){
     ASSERT_EQ(instruccion->constanteNumerica(), 10);
 }
 
+TEST(test_instruccion, read){
+    Instruccion* instruccion = new Instruccion(READ, "x");
+
+    ASSERT_EQ(instruccion->op(), READ);
+    ASSERT_EQ(instruccion->nombreVariable(), "x");
+}
