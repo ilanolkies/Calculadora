@@ -23,15 +23,17 @@ TEST(test_instruccion, mul){
 }
 
 TEST(test_instruccion, jump){
-    Instruccion* instruccion = new Instruccion(JUMP);
+    Instruccion* instruccion = new Instruccion(JUMP, "rutina");
 
     ASSERT_EQ(instruccion->op(), JUMP);
+    ASSERT_EQ(instruccion->nombreRutina(), "rutina");
 }
 
 TEST(test_instruccion, jumpz){
-    Instruccion* instruccion = new Instruccion(JUMPZ);
+    Instruccion* instruccion = new Instruccion(JUMPZ, "rutina");
 
     ASSERT_EQ(instruccion->op(), JUMPZ);
+    ASSERT_EQ(instruccion->nombreRutina(), "rutina");
 }
 
 TEST(test_instruccion, push){
@@ -40,3 +42,4 @@ TEST(test_instruccion, push){
     ASSERT_EQ(instruccion->op(), PUSH);
     ASSERT_EQ(instruccion->constanteNumerica(), 10);
 }
+
