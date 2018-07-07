@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "../src/Instruccion.h"
+#include "../src/Programa.h"
 
 //INSTRUCCION
 
@@ -55,4 +56,18 @@ TEST(test_instruccion, write){
 
     ASSERT_EQ(instruccion->op(), WRITE);
     ASSERT_EQ(instruccion->nombreVariable(), "x");
+}
+
+//PROGRAMA
+const vector<string> rutinas = {"a", "b", "c"};
+
+TEST(test_programa, vacia) {
+    Programa *p = new Programa;
+
+    for (int i = 0; i < rutinas.size(); ++i)
+        ASSERT_EQ(p->longitudRutina(rutinas[i]),0);
+
+    ASSERT_EQ(p->longitudTotal(), 0);
+
+    ASSERT_EQ(p->longitudPrograma(), 0);
 }
