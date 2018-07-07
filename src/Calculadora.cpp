@@ -50,6 +50,7 @@ Calculadora::Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ven
     nombre_rutina_actual = rutina_inicial;
     programa = p;
     ejecutando = p.longitudTotal() > 0 && p.longitudRutina(rutina_inicial) > 0;
+    cap_de_ventana = capacidad_de_ventana;
 
     //Inicializamos las rutinas
     IteradorPrograma it_programa = p.begin();
@@ -81,11 +82,7 @@ Calculadora::Calculadora(Programa p, Rutina rutina_inicial, int capacidad_de_ven
                 //(Esto cuesta O(|V|))
                 // - Guardamos en la instruccion el iterador a esa variable
                 //asi consultarla es O(1)
-                Ventana< ValorVariable > v =  Ventana< ValorVariable >(capacidad_de_ventana);
-                v.registrar(ValorVariable(0, 0));
-                list<ValorVariable> l;
-                l.push_back(ValorVariable(0, 0));
-                InfoVariables Nodo = InfoVariables(v, l);
+                InfoVariables Nodo = InfoVariables(capacidad_de_ventana);
                 IteradorVariables it_variables = variables.agregar(instruccion.nombreVariable(), Nodo);
                 nueva_instruccion.agregarIteradorVariables(it_variables);
             }
@@ -177,6 +174,10 @@ void Calculadora::asignarVariable(Variable v, int valor) {
     ValorVariable variable = ValorVariable(instante_actual, valor);
 
     IteradorVariables var = variables.buscar(v);
+    if (var == variables.end()) {
+        InfoVariables nuevo(cap_de_ventana);
+        var = variables.agregar(v, nuevo);
+    }
     (*var).ventana.registrar(variable);
     (*var).lista.push_back(variable);
 }

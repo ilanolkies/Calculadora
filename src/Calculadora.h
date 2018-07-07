@@ -43,7 +43,10 @@ private:
         list<ValorVariable> lista;
 
         InfoVariables(Ventana<ValorVariable> v, list<ValorVariable> l) : ventana(v), lista(l) {}
-        InfoVariables(const InfoVariables& copia) : ventana(copia.ventana), lista(copia.lista) {};
+        InfoVariables(const InfoVariables& copia) : ventana(copia.ventana), lista(copia.lista) {}
+        InfoVariables(const int& capacidad_de_ventana) : ventana(Ventana<ValorVariable>(capacidad_de_ventana)) {
+            ventana.registrar(ValorVariable(0, 0));
+        }
     };
 
     typedef DiccionarioString<ConjInstrucciones> DiccionarioRutinas;
@@ -62,6 +65,7 @@ private:
     Instante instante_actual;
     Rutina nombre_rutina_actual;
     bool ejecutando;
+    int cap_de_ventana;
 
     class InstruccionCalculadora {
     private:
