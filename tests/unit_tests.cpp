@@ -7,3 +7,10 @@ TEST(test_instruccion, add){
 
     ASSERT_EQ(instruccion->op(), ADD);
 }
+
+TEST(test_instruccion, sub){
+    Instruccion* instruccion = new Instruccion(SUB);
+
+    ASSERT_EQ(instruccion->op(), SUB);
+}
+
