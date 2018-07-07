@@ -70,6 +70,9 @@ TEST(test_programa, vacia) {
     ASSERT_EQ(p->longitudTotal(), 0);
 
     ASSERT_EQ(p->longitudPrograma(), 0);
+
+    auto it = p->begin();
+    ASSERT_FALSE(it != p->end());
 }
 
 TEST(test_programa, una_insturccion) {
@@ -93,7 +96,38 @@ TEST(test_programa, una_insturccion) {
     ASSERT_EQ(p->obtenerRutina(0), "a");
 
     auto it = p->begin();
+    ASSERT_TRUE(it != p->end());
     ASSERT_EQ((*it).instrucciones[0].op(), ADD);
+    ++it;
+    ASSERT_FALSE(it != p->end());
+}
+
+TEST(test_programa, dos_insturcciones) {
+    Programa *p = new Programa;
+
+    for (int i = 0; i < rutinas.size(); ++i)
+        ASSERT_EQ(p->longitudRutina(rutinas[i]),0);
+
+    ASSERT_EQ(p->longitudTotal(), 0);
+
+    ASSERT_EQ(p->longitudPrograma(), 0);
+
+    p->agregarInstruccion("a", Instruccion(ADD));
+    p->agregarInstruccion("a", Instruccion(MUL));
+
+    ASSERT_EQ(p->obtenerInstrucciones("a").size(), 2);
+    ASSERT_EQ(p->obtenerInstrucciones("a")[0].op(), ADD);
+    ASSERT_EQ(p->obtenerInstrucciones("a")[1].op(), MUL);
+
+    ASSERT_EQ(p->longitudPrograma(), 1);
+    ASSERT_EQ(p->longitudRutina("a"), 2);
+    ASSERT_EQ(p->longitudTotal(), 2);
+    ASSERT_EQ(p->obtenerRutina(0), "a");
+
+    auto it = p->begin();
+    ASSERT_TRUE(it != p->end());
+    ASSERT_EQ((*it).instrucciones[0].op(), ADD);
+    ASSERT_EQ((*it).instrucciones[1].op(), MUL);
     ++it;
     ASSERT_FALSE(it != p->end());
 }
