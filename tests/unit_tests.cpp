@@ -3,6 +3,7 @@
 #include "../src/Instruccion.h"
 #include "../src/Programa.h"
 #include "../src/DiccionarioString.h"
+#include "../src/Pila.h"
 
 //INSTRUCCION
 TEST(test_instruccion, add) {
@@ -225,4 +226,14 @@ TEST(test_dicc_string, aliasing) {
     *dicc->buscar("clave") = 20;
     ASSERT_EQ(*dicc->buscar("clave"), 20);
     ASSERT_EQ(v, 10);
+}
+
+//PILA
+TEST(test_pila, vacia) {
+    Pila *p = new Pila;
+
+    ASSERT_EQ(p->size(), 0);
+    ASSERT_EQ(p->top(), 0);
+    ASSERT_EQ(p->getStack().size(), 0);
+    ASSERT_EQ(p->pop(), 0);
 }
