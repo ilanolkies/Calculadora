@@ -184,3 +184,17 @@ TEST(test_dicc_string, un_elemento){
     dicc->agregar("clave", v);
     ASSERT_EQ(*dicc->buscar("clave"), v);
 }
+
+TEST(test_dicc_string, dos_elementos){
+    DiccionarioString<int> *dicc = new DiccionarioString<int>;
+
+    ASSERT_TRUE(dicc->buscar("a") == dicc->end());
+
+    int v1(10);
+    dicc->agregar("clave1", v1);
+    ASSERT_EQ(*dicc->buscar("clave1"), v1);
+
+    int v2(20);
+    dicc->agregar("clave2", v2);
+    ASSERT_EQ(*dicc->buscar("clave2"), v2);
+}
