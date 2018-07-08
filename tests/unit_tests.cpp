@@ -174,3 +174,13 @@ TEST(test_dicc_string, vacio){
 
     ASSERT_TRUE(dicc->buscar("a") == dicc->end());
 }
+
+TEST(test_dicc_string, un_elemento){
+    DiccionarioString<int> *dicc = new DiccionarioString<int>;
+
+    ASSERT_TRUE(dicc->buscar("a") == dicc->end());
+
+    int v(10);
+    dicc->agregar("clave", v);
+    ASSERT_EQ(*dicc->buscar("clave"), v);
+}
