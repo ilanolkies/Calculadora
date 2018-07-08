@@ -212,3 +212,17 @@ TEST(test_dicc_string, mismo_elemento){
     dicc->agregar("clave", v2);
     ASSERT_EQ(*dicc->buscar("clave"), v2);
 }
+
+TEST(test_dicc_string, aliasing){
+    DiccionarioString<int> *dicc = new DiccionarioString<int>;
+
+    ASSERT_TRUE(dicc->buscar("a") == dicc->end());
+
+    int v(10);
+    dicc->agregar("clave", v);
+    ASSERT_EQ(*dicc->buscar("clave"), v);
+
+    *dicc->buscar("clave") = 20;
+    ASSERT_EQ(*dicc->buscar("clave"), 20);
+    ASSERT_EQ(v, 10);
+}
