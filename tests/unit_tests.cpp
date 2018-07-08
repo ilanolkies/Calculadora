@@ -257,7 +257,6 @@ TEST(test_pila, un_elemento) {
     ASSERT_EQ(p->getStack().empty(), false);
 }
 
-
 TEST(test_pila, un_elemento_pop) {
     Pila *p = new Pila;
 
@@ -283,4 +282,30 @@ TEST(test_pila, un_elemento_pop) {
     ASSERT_EQ(p->getStack().size(), 0);
     ASSERT_EQ(p->getStack().empty(), true);
     ASSERT_EQ(p->pop(), 0);
+}
+
+TEST(test_pila, dos_elementos) {
+    Pila *p = new Pila;
+
+    ASSERT_EQ(p->size(), 0);
+    ASSERT_EQ(p->top(), 0);
+    ASSERT_EQ(p->getStack().size(), 0);
+    ASSERT_EQ(p->getStack().empty(), true);
+    ASSERT_EQ(p->pop(), 0);
+
+    p->push(10);
+
+    ASSERT_EQ(p->size(), 1);
+    ASSERT_EQ(p->top(), 10);
+    ASSERT_EQ(p->getStack().size(), 1);
+    ASSERT_EQ(p->getStack().top(), 10);
+    ASSERT_EQ(p->getStack().empty(), false);
+
+    p->push(20);
+
+    ASSERT_EQ(p->size(), 2);
+    ASSERT_EQ(p->top(), 20);
+    ASSERT_EQ(p->getStack().size(), 2);
+    ASSERT_EQ(p->getStack().top(), 20);
+    ASSERT_EQ(p->getStack().empty(), false);
 }
