@@ -2,9 +2,9 @@
 
 #include "../src/Instruccion.h"
 #include "../src/Programa.h"
+#include "../src/DiccionarioString.h"
 
 //INSTRUCCION
-
 TEST(test_instruccion, add){
     Instruccion* instruccion = new Instruccion(ADD);
 
@@ -166,4 +166,11 @@ TEST(test_programa, dos_rutinas) {
     ASSERT_EQ((*it).instrucciones[0].op(), MUL);
     ++it;
     ASSERT_FALSE(it != p->end());
+}
+
+//DICIONARIO STRING
+TEST(test_dicc_string, vacio){
+    DiccionarioString<int> *dicc = new DiccionarioString<int>;
+
+    ASSERT_TRUE(dicc->buscar("a") == dicc->end());
 }
