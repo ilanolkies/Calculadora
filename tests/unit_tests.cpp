@@ -4,6 +4,7 @@
 #include "../src/Programa.h"
 #include "../src/DiccionarioString.h"
 #include "../src/Pila.h"
+#include "../src/Calculadora.h"
 
 //INSTRUCCION
 TEST(test_instruccion, add) {
@@ -393,4 +394,18 @@ TEST(test_pila, un_elemento_aliasing) {
 
     ASSERT_EQ(s.size(), 0);
     ASSERT_EQ(s.empty(), true);
+}
+
+//CALCULADORA
+TEST(test_calculadora, vacia) {
+    Programa *p = new Programa;
+
+    Calculadora *c = new Calculadora(*p, "r", 1);
+
+    ASSERT_EQ(c->pila().top(), 0);
+    ASSERT_EQ(c->pila().size(), 0);
+    ASSERT_EQ(c->indiceActual(), 0);
+    ASSERT_EQ(c->rutinaActual(), "r");
+    ASSERT_EQ(c->instanteActual(), 0);
+    ASSERT_EQ(c->finalizo(), true);
 }
