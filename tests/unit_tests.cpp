@@ -397,6 +397,9 @@ TEST(test_pila, un_elemento_aliasing) {
 }
 
 //CALCULADORA
+
+vector<Operacion> ops = { PUSH, ADD, SUB, MUL, READ, WRITE, JUMP, JUMPZ };
+
 TEST(test_calculadora, vacia) {
     Programa *p = new Programa;
 
@@ -408,4 +411,40 @@ TEST(test_calculadora, vacia) {
     ASSERT_EQ(c->rutinaActual(), "r");
     ASSERT_EQ(c->instanteActual(), 0);
     ASSERT_EQ(c->finalizo(), true);
+}
+
+TEST(test_calculadora, una_instruccion) {
+    for(Operacion op : ops) {
+        Programa *p = new Programa;
+        if(op == ADD || op == SUB || op == MUL)
+            p->agregarInstruccion("r", Instruccion(op));
+        else if (op==PUSH)
+            p->agregarInstruccion("r", Instruccion(op, 10));
+        else if(op==READ || op == WRITE)
+            p->agregarInstruccion("r", Instruccion(op, "v"));
+        else if(op == JUMP || op == JUMPZ)
+            p->agregarInstruccion("r", Instruccion(op, "fin"));
+
+
+        Calculadora *c = new Calculadora(*p, "r", 1);
+
+        ASSERT_EQ(c->indiceActual(), 0);
+        ASSERT_EQ(c->rutinaActual(), "r");
+        ASSERT_EQ(c->instanteActual(), 0);
+        ASSERT_EQ(c->finalizo(), false);
+
+        c->ejeutar();
+
+        if(op == JUMP || op == JUMPZ) {
+            ASSERT_EQ(c->indiceActual(), 0);
+            ASSERT_EQ(c->rutinaActual(), "fin");
+        }
+        else {
+            ASSERT_EQ(c->indiceActual(), 1);
+            ASSERT_EQ(c->rutinaActual(), "r");
+        }
+
+        ASSERT_EQ(c->instanteActual(), 1);
+        ASSERT_EQ(c->finalizo(), true);
+    }
 }
