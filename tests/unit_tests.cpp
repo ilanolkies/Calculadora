@@ -678,3 +678,148 @@ TEST(test_calculadora, pila) {
     ASSERT_EQ(c->pila().size(), 2);
     ASSERT_EQ(c->pila().top(), 30);
 }
+
+//UTILIZACION DE VENTANA
+TEST(test_calculadora, ventana) {
+    Programa *p = new Programa();
+    p->agregarInstruccion("r", Instruccion(PUSH, 100));
+    p->agregarInstruccion("r", Instruccion(PUSH, 200));
+    p->agregarInstruccion("r", Instruccion(PUSH, 300));
+
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+    p->agregarInstruccion("r", Instruccion(PUSH, 20));
+    p->agregarInstruccion("r", Instruccion(PUSH, 30));
+    p->agregarInstruccion("r", Instruccion(PUSH, 40));
+    p->agregarInstruccion("r", Instruccion(PUSH, 50));
+    p->agregarInstruccion("r", Instruccion(WRITE, "v"));
+    p->agregarInstruccion("r", Instruccion(WRITE, "v"));
+    p->agregarInstruccion("r", Instruccion(WRITE, "v"));
+    p->agregarInstruccion("r", Instruccion(WRITE, "v"));
+    p->agregarInstruccion("r", Instruccion(WRITE, "v"));
+
+    p->agregarInstruccion("r", Instruccion(WRITE, "w"));
+    p->agregarInstruccion("r", Instruccion(WRITE, "w"));
+    p->agregarInstruccion("r", Instruccion(WRITE, "w"));
+
+    Calculadora *c = new Calculadora(*p, "r", 3);
+
+    // vairable v
+    for (int i = 0; i < 8; ++i)
+        c->ejeutar();
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 50);
+
+    for (int i = 0; i < 8; ++i)
+        ASSERT_EQ(c->valorVariable("v", i), 0);
+
+    ASSERT_EQ(c->valorVariable("v", 9), 50);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 40);
+
+    for (int i = 0; i < 8; ++i)
+        ASSERT_EQ(c->valorVariable("v", i), 0);
+
+    ASSERT_EQ(c->valorVariable("v", 8), 50);
+    ASSERT_EQ(c->valorVariable("v", 9), 40);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 30);
+
+    for (int i = 0; i < 8; ++i)
+        ASSERT_EQ(c->valorVariable("v", i), 0);
+
+    ASSERT_EQ(c->valorVariable("v", 8), 50);
+    ASSERT_EQ(c->valorVariable("v", 9), 40);
+    ASSERT_EQ(c->valorVariable("v", 10), 30);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 20);
+
+    for (int i = 0; i < 8; ++i)
+        ASSERT_EQ(c->valorVariable("v", i), 0);
+
+    ASSERT_EQ(c->valorVariable("v", 8), 50);
+    ASSERT_EQ(c->valorVariable("v", 9), 40);
+    ASSERT_EQ(c->valorVariable("v", 10), 30);
+    ASSERT_EQ(c->valorVariable("v", 11), 20);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 10);
+
+    for (int i = 0; i < 8; ++i)
+        ASSERT_EQ(c->valorVariable("v", i), 0);
+
+    ASSERT_EQ(c->valorVariable("v", 8), 50);
+    ASSERT_EQ(c->valorVariable("v", 9), 40);
+    ASSERT_EQ(c->valorVariable("v", 10), 30);
+    ASSERT_EQ(c->valorVariable("v", 11), 20);
+    ASSERT_EQ(c->valorVariable("v", 12), 10);
+
+    // vairable w
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 10);
+    ASSERT_EQ(c->valorActual("w"), 300);
+
+    for (int i = 0; i < 8; ++i)
+        ASSERT_EQ(c->valorVariable("v", i), 0);
+
+    ASSERT_EQ(c->valorVariable("v", 8), 50);
+    ASSERT_EQ(c->valorVariable("v", 9), 40);
+    ASSERT_EQ(c->valorVariable("v", 10), 30);
+    ASSERT_EQ(c->valorVariable("v", 11), 20);
+    ASSERT_EQ(c->valorVariable("v", 12), 10);
+
+    for (int i = 0; i < 12; ++i)
+        ASSERT_EQ(c->valorVariable("w", i), 0);
+
+    ASSERT_EQ(c->valorVariable("w", 13), 300);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 10);
+    ASSERT_EQ(c->valorActual("w"), 200);
+
+    for (int i = 0; i < 8; ++i)
+        ASSERT_EQ(c->valorVariable("v", i), 0);
+
+    ASSERT_EQ(c->valorVariable("v", 8), 50);
+    ASSERT_EQ(c->valorVariable("v", 9), 40);
+    ASSERT_EQ(c->valorVariable("v", 10), 30);
+    ASSERT_EQ(c->valorVariable("v", 11), 20);
+    ASSERT_EQ(c->valorVariable("v", 12), 10);
+
+    for (int i = 0; i < 12; ++i)
+        ASSERT_EQ(c->valorVariable("w", i), 0);
+
+    ASSERT_EQ(c->valorVariable("w", 13), 300);
+    ASSERT_EQ(c->valorVariable("w", 14), 200);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 10);
+    ASSERT_EQ(c->valorActual("w"), 100);
+
+    for (int i = 0; i < 8; ++i)
+        ASSERT_EQ(c->valorVariable("v", i), 0);
+
+    ASSERT_EQ(c->valorVariable("v", 8), 50);
+    ASSERT_EQ(c->valorVariable("v", 9), 40);
+    ASSERT_EQ(c->valorVariable("v", 10), 30);
+    ASSERT_EQ(c->valorVariable("v", 11), 20);
+    ASSERT_EQ(c->valorVariable("v", 12), 10);
+
+    for (int i = 0; i < 12; ++i)
+        ASSERT_EQ(c->valorVariable("w", i), 0);
+
+    ASSERT_EQ(c->valorVariable("w", 13), 300);
+    ASSERT_EQ(c->valorVariable("w", 14), 200);
+    ASSERT_EQ(c->valorVariable("w", 15), 100);
+}
