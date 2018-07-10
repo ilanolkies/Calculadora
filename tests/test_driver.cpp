@@ -310,8 +310,7 @@ TEST(test_driver, read) {
 		d.asignarVariable("foo", 94984087);
 
 		ASSERT_EQ(d.valorHistoricoVariable("foo", 0), 0);
-		int v = d.valorHistoricoVariable("foo", 1);
-		ASSERT_EQ(v, 94984087);
+		ASSERT_EQ(d.valorHistoricoVariable("foo", 1), 94984087);
 
 		d.ejecutarInstruccionActual();
 		ASSERT_EQ(d.valorVariable("foo"), 94984087);
