@@ -427,3 +427,98 @@ TEST(test_calculadora, ventana) {
     ASSERT_EQ(c->valorVariable("w", 14), 200);
     ASSERT_EQ(c->valorVariable("w", 15), 100);
 }
+
+TEST(test_calculadora, fibonacci_stress) {
+    Programa* p = new Programa();
+    p->agregarInstruccion("Calcular F(n)", Instruccion(READ, "F(n-1)"));
+    p->agregarInstruccion("Calcular F(n)", Instruccion(READ, "F(n-2)"));
+    p->agregarInstruccion("Calcular F(n)", Instruccion(ADD));
+    p->agregarInstruccion("Calcular F(n)", Instruccion(WRITE, "F(n)"));
+    p->agregarInstruccion("Calcular F(n)", Instruccion(JUMP, "Guardar nuevos valores"));
+    p->agregarInstruccion("Guardar nuevos valores", Instruccion(READ, "F(n-1)"));
+    p->agregarInstruccion("Guardar nuevos valores", Instruccion(WRITE, "F(n-2)"));
+    p->agregarInstruccion("Guardar nuevos valores", Instruccion(READ, "F(n)"));
+    p->agregarInstruccion("Guardar nuevos valores", Instruccion(WRITE, "F(n-1)"));
+    p->agregarInstruccion("Guardar nuevos valores", Instruccion(JUMP, "Termino?"));
+    p->agregarInstruccion("Termino?", Instruccion(READ, "n"));
+    p->agregarInstruccion("Termino?", Instruccion(PUSH, 1));
+    p->agregarInstruccion("Termino?", Instruccion(SUB));
+    p->agregarInstruccion("Termino?", Instruccion(WRITE, "n"));
+    p->agregarInstruccion("Termino?", Instruccion(READ, "n"));
+    p->agregarInstruccion("Termino?", Instruccion(PUSH, 1));
+    p->agregarInstruccion("Termino?", Instruccion(SUB));
+    p->agregarInstruccion("Termino?", Instruccion(JUMPZ, "FIN"));
+    p->agregarInstruccion("Termino?", Instruccion(JUMP, "Calcular F(n)"));
+
+    Calculadora *c = new Calculadora(*p, "Calcular F(n)", 2);
+
+    int n = 20;
+    int Fn2 = 0, Fn1 = 1;
+    c->asignarVariable("n", n);
+    c->asignarVariable("F(n-2)", Fn2);
+    c->asignarVariable("F(n-1)", Fn1);
+
+    cout << endl;
+    vector< pair<int, int> > historialFn;
+    while(!c->finalizo()) {
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), Fn1);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), Fn2);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), Fn1+Fn2);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), 0);
+        EXPECT_EQ(c->valorActual("F(n)"), Fn1+Fn2);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), 0);
+        EXPECT_EQ(c->rutinaActual(), "Guardar nuevos valores");
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), Fn1);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), 0);
+        EXPECT_EQ(c->valorActual("F(n-2)"), Fn1);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), Fn1+Fn2);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), 0);
+        EXPECT_EQ(c->valorActual("F(n-1)"), Fn1+Fn2);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), 0);
+        EXPECT_EQ(c->rutinaActual(), "Termino?");
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), n);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), 1);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), n-1);
+        c->ejeutar();
+        EXPECT_EQ(c->valorActual("n"), n-1);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), n-1);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), 1);
+        c->ejeutar();
+        EXPECT_EQ(c->pila().top(), n-2);
+        c->ejeutar();
+        if (n == 2) {
+            EXPECT_TRUE(c->finalizo());
+        } else {
+            EXPECT_FALSE(c->finalizo());
+            c->ejeutar();
+            EXPECT_EQ(c->rutinaActual(), "Calcular F(n)");
+        }
+
+        int oldFn1 = Fn1;
+        Fn1 = Fn1 + Fn2;
+        Fn2 = oldFn1;
+        n = n-1;
+
+        historialFn.push_back({c->instanteActual(), Fn1});
+    }
+    EXPECT_EQ(c->valorActual("F(n)"), Fn1);
+
+    for (pair<int,int> instante : historialFn) {
+        EXPECT_EQ(c->valorVariable("F(n)",instante.first), instante.second);
+    }
+}
