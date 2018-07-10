@@ -413,6 +413,7 @@ TEST(test_calculadora, vacia) {
     ASSERT_EQ(c->finalizo(), true);
 }
 
+// COMPORTAMIENTO GENERAL DE UA CALCULADORA CON UNA SOLA ISNTRUCCION
 TEST(test_calculadora, una_instruccion) {
     for(Operacion op : ops) {
         Programa *p = new Programa;
@@ -449,6 +450,7 @@ TEST(test_calculadora, una_instruccion) {
     }
 }
 
+// COMPORTAMIENTO DETALLADO DE LA EJECUCION DE CADA INSTRUCCION
 TEST(test_calculadora, push) {
     Programa *p = new Programa();
     p->agregarInstruccion("r", Instruccion(PUSH, 10));
