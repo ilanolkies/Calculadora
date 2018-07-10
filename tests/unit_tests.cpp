@@ -518,3 +518,19 @@ TEST(test_calculadora, mul) {
     ASSERT_EQ(c->pila().size(), 1);
     ASSERT_EQ(c->pila().top(), 150);
 }
+
+TEST(test_calculadora, write) {
+    Programa *p = new Programa();
+    p->agregarInstruccion("r", Instruccion(PUSH, 15));
+    p->agregarInstruccion("r", Instruccion(WRITE, "v"));
+
+    Calculadora *c = new Calculadora(*p, "r", 1);
+
+    ASSERT_EQ(c->pila().size(), 0);
+
+    c->ejeutar();
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 15);
+    ASSERT_EQ(c->valorVariable("v", 0), 0);
+}
