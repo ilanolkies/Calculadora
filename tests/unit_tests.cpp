@@ -527,6 +527,7 @@ TEST(test_calculadora, write) {
     Calculadora *c = new Calculadora(*p, "r", 1);
 
     ASSERT_EQ(c->pila().size(), 0);
+    ASSERT_EQ(c->valorActual("v"), 0);
 
     c->ejeutar();
     c->ejeutar();
