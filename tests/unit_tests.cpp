@@ -566,11 +566,44 @@ TEST(test_calculadora, jump) {
     Calculadora *c = new Calculadora(*p, "r", 1);
 
     ASSERT_EQ(c->pila().size(), 0);
+    ASSERT_EQ(c->rutinaActual(), "r");
 
     c->ejeutar();
     c->ejeutar();
 
     ASSERT_EQ(c->pila().size(), 1);
     ASSERT_EQ(c->pila().top(), 10);
+    ASSERT_EQ(c->rutinaActual(), "s");
+}
+
+TEST(test_calculadora, jumpz) {
+    Programa *p = new Programa();
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+    p->agregarInstruccion("r", Instruccion(JUMPZ, "s"));
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+    p->agregarInstruccion("r", Instruccion(SUB));
+    p->agregarInstruccion("r", Instruccion(JUMPZ, "s"));
+
+    Calculadora *c = new Calculadora(*p, "r", 1);
+
+    ASSERT_EQ(c->pila().size(), 0);
+    ASSERT_EQ(c->rutinaActual(), "r");
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->rutinaActual(), "r");
+    ASSERT_EQ(c->pila().top(), 10);
+
+    c->ejeutar();
+    c->ejeutar();
+    c->ejeutar();
+    c->ejeutar();
+
+    ASSERT_EQ(c->rutinaActual(), "r");
+    ASSERT_EQ(c->pila().top(), 0);
+
+    c->ejeutar();
+
     ASSERT_EQ(c->rutinaActual(), "s");
 }
