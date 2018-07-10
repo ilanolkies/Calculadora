@@ -557,3 +557,20 @@ TEST(test_calculadora, read) {
 
     ASSERT_EQ(c->pila().top(), 15);
 }
+
+TEST(test_calculadora, jump) {
+    Programa *p = new Programa();
+    p->agregarInstruccion("r", Instruccion(JUMP, "s"));
+    p->agregarInstruccion("s", Instruccion(PUSH, 10));
+
+    Calculadora *c = new Calculadora(*p, "r", 1);
+
+    ASSERT_EQ(c->pila().size(), 0);
+
+    c->ejeutar();
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 1);
+    ASSERT_EQ(c->pila().top(), 10);
+    ASSERT_EQ(c->rutinaActual(), "s");
+}
