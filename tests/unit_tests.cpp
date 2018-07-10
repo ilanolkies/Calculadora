@@ -448,3 +448,17 @@ TEST(test_calculadora, una_instruccion) {
         ASSERT_EQ(c->finalizo(), true);
     }
 }
+
+TEST(test_calculadora, push) {
+    Programa *p = new Programa();
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+
+    Calculadora *c = new Calculadora(*p, "r", 1);
+
+    ASSERT_EQ(c->pila().size(), 0);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 1);
+    ASSERT_EQ(c->pila().top(), 10);
+}
