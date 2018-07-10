@@ -534,3 +534,25 @@ TEST(test_calculadora, write) {
     ASSERT_EQ(c->valorActual("v"), 15);
     ASSERT_EQ(c->valorVariable("v", 0), 0);
 }
+
+TEST(test_calculadora, read) {
+    Programa *p = new Programa();
+    p->agregarInstruccion("r", Instruccion(PUSH, 15));
+    p->agregarInstruccion("r", Instruccion(WRITE, "v"));
+    p->agregarInstruccion("r", Instruccion(READ, "v"));
+
+    Calculadora *c = new Calculadora(*p, "r", 1);
+
+    ASSERT_EQ(c->pila().size(), 0);
+
+    c->ejeutar();
+    c->ejeutar();
+
+    ASSERT_EQ(c->valorActual("v"), 15);
+    ASSERT_EQ(c->valorVariable("v", 0), 0);
+    ASSERT_EQ(c->pila().top(), 0);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().top(), 15);
+}
