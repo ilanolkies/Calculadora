@@ -498,3 +498,21 @@ TEST(test_calculadora, sub) {
     ASSERT_EQ(c->pila().size(), 1);
     ASSERT_EQ(c->pila().top(), 5);
 }
+
+TEST(test_calculadora, mul) {
+    Programa *p = new Programa();
+    p->agregarInstruccion("r", Instruccion(PUSH, 15));
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+    p->agregarInstruccion("r", Instruccion(MUL));
+
+    Calculadora *c = new Calculadora(*p, "r", 1);
+
+    ASSERT_EQ(c->pila().size(), 0);
+
+    c->ejeutar();
+    c->ejeutar();
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 1);
+    ASSERT_EQ(c->pila().top(), 150);
+}
