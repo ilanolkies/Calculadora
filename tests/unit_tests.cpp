@@ -607,3 +607,74 @@ TEST(test_calculadora, jumpz) {
 
     ASSERT_EQ(c->rutinaActual(), "s");
 }
+
+// UTILIZACION DE LA PILA
+TEST(test_calculadora, pila) {
+    Programa *p = new Programa();
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+    p->agregarInstruccion("r", Instruccion(ADD));
+    p->agregarInstruccion("r", Instruccion(MUL));
+    p->agregarInstruccion("r", Instruccion(PUSH, 10));
+    p->agregarInstruccion("r", Instruccion(WRITE, "v"));
+    p->agregarInstruccion("r", Instruccion(PUSH, 20));
+    p->agregarInstruccion("r", Instruccion(READ, "v"));
+    p->agregarInstruccion("r", Instruccion(ADD));
+
+
+    Calculadora *c = new Calculadora(*p, "r", 1);
+
+    ASSERT_EQ(c->pila().size(), 0);
+    ASSERT_EQ(c->pila().top(), 0);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 1);
+    ASSERT_EQ(c->pila().top(), 10);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 2);
+    ASSERT_EQ(c->pila().top(), 10);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 3);
+    ASSERT_EQ(c->pila().top(), 10);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 2);
+    ASSERT_EQ(c->pila().top(), 20);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 1);
+    ASSERT_EQ(c->pila().top(), 200);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 2);
+    ASSERT_EQ(c->pila().top(), 10);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 1);
+    ASSERT_EQ(c->pila().top(), 200);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 2);
+    ASSERT_EQ(c->pila().top(), 20);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 3);
+    ASSERT_EQ(c->pila().top(), 10);
+
+    c->ejeutar();
+
+    ASSERT_EQ(c->pila().size(), 2);
+    ASSERT_EQ(c->pila().top(), 30);
+}
